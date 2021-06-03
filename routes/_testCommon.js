@@ -3,85 +3,118 @@
 const db = require("../db.js");
 const User = require("../models/user");
 const Company = require("../models/company");
+const Job = require("../models/jobs");
 const { createToken } = require("../helpers/tokens");
 
 async function commonBeforeAll() {
-  // noinspection SqlWithoutWhere
-  await db.query("DELETE FROM users");
-  // noinspection SqlWithoutWhere
-  await db.query("DELETE FROM companies");
+	// noinspection SqlWithoutWhere
+	await db.query("DELETE FROM users");
+	// noinspection SqlWithoutWhere
+	await db.query("DELETE FROM companies");
+	// noinspection SqlWithoutWhere
+	await db.query("DELETE FROM jobs");
+	// noinspection SqlWithoutWhere
+	await db.query("DELETE FROM applications");
 
-  await Company.create(
-      {
-        handle: "c1",
-        name: "C1",
-        numEmployees: 1,
-        description: "Desc1",
-        logoUrl: "http://c1.img",
-      });
-  await Company.create(
-      {
-        handle: "c2",
-        name: "C2",
-        numEmployees: 2,
-        description: "Desc2",
-        logoUrl: "http://c2.img",
-      });
-  await Company.create(
-      {
-        handle: "c3",
-        name: "C3",
-        numEmployees: 3,
-        description: "Desc3",
-        logoUrl: "http://c3.img",
-      });
+	await Company.create({
+		handle: "c1",
+		name: "C1",
+		numEmployees: 1,
+		description: "Desc1",
+		logoUrl: "http://c1.img",
+	});
+	await Company.create({
+		handle: "c2",
+		name: "C2",
+		numEmployees: 2,
+		description: "Desc2",
+		logoUrl: "http://c2.img",
+	});
+	await Company.create({
+		handle: "c3",
+		name: "C3",
+		numEmployees: 3,
+		description: "Desc3",
+		logoUrl: "http://c3.img",
+	});
 
-  await User.register({
-    username: "u1",
-    firstName: "U1F",
-    lastName: "U1L",
-    email: "user1@user.com",
-    password: "password1",
-    isAdmin: false,
-  });
-  await User.register({
-    username: "u2",
-    firstName: "U2F",
-    lastName: "U2L",
-    email: "user2@user.com",
-    password: "password2",
-    isAdmin: false,
-  });
-  await User.register({
-    username: "u3",
-    firstName: "U3F",
-    lastName: "U3L",
-    email: "user3@user.com",
-    password: "password3",
-    isAdmin: false,
-  });
+	await User.register({
+		username: "u1",
+		firstName: "U1F",
+		lastName: "U1L",
+		email: "user1@user.com",
+		password: "password1",
+		isAdmin: false,
+	});
+	await User.register({
+		username: "u2",
+		firstName: "U2F",
+		lastName: "U2L",
+		email: "user2@user.com",
+		password: "password2",
+		isAdmin: false,
+	});
+	await User.register({
+		username: "u3",
+		firstName: "U3F",
+		lastName: "U3L",
+		email: "user3@user.com",
+		password: "password3",
+		isAdmin: false,
+	});
+	await User.register({
+		username: "admin1",
+		firstName: "A1F",
+		lastName: "A1L",
+		email: "admin1@user.com",
+		password: "adminPassowrd",
+		isAdmin: true,
+	});
+	await Job.create({
+		id: 1,
+		title: "JT1",
+		salary: 10,
+		equity: 0.0,
+		companyHandle: "c1",
+	});
+	await Job.create({
+		id: 2,
+		title: "JT2",
+		salary: 20,
+		equity: 0.1,
+		companyHandle: "c2",
+	});
+	await Job.create({
+		id: 3,
+		title: "JT3",
+		salary: 30,
+		equity: 0.2,
+		companyHandle: "c3",
+	});
 }
 
 async function commonBeforeEach() {
-  await db.query("BEGIN");
+	await db.query("BEGIN");
 }
 
 async function commonAfterEach() {
-  await db.query("ROLLBACK");
+	await db.query("ROLLBACK");
 }
 
 async function commonAfterAll() {
-  await db.end();
+	await db.end();
 }
 
-
 const u1Token = createToken({ username: "u1", isAdmin: false });
-
+const u2Token = createToken({ username: "u2", isAdmin: false });
+const admin1Token = createToken({ username: "admin1", isAdmin: true });
 
 module.exports = {
-  commonBeforeAll,
-  commonBeforeEach,
-  commonAfterEach,
-  commonAfterAll,
-  u1Token,
+	commonBeforeAll,
+	commonBeforeEach,
+	commonAfterEach,
+	commonAfterAll,
+	u1Token,
+	admin1Token,
+	u2Token,
 };

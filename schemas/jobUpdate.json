@@ -1,0 +1,44 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "http://example.com/example.json",
+	"type": "object",
+	"title": "The root schema",
+	"description": "The root schema comprises the entire JSON document.",
+	"default": {},
+	"examples": [
+		{
+			"title": "new title",
+			"salary": 20000,
+			"equity": 30.0
+		}
+	],
+	"required": [],
+	"properties": {
+		"title": {
+			"$id": "#/properties/title",
+			"type": "string",
+			"title": "The title schema",
+			"description": "The job title",
+			"default": "",
+			"examples": ["Network administrator", "Janitor", "Software Engineer"]
+		},
+		"salary": {
+			"$id": "#/properties/salary",
+			"type": "integer",
+			"title": "The salary schema",
+			"description": "Yearly salary estimate",
+			"default": 0,
+			"examples": [400000, 80000, 50]
+		},
+		"equity": {
+			"$id": "#/properties/equity",
+			"type": "number",
+			"title": "The equity schema",
+			"description": "Ownership shares in the company in the form of stock options",
+			"default": 0.0,
+			"maximum": 1.0,
+			"examples": [1.0, 0.2, 0.004]
+		}
+	},
+	"additionalProperties": true
+}

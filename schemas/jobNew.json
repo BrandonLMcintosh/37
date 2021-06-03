@@ -1,0 +1,62 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "http://example.com/example.json",
+	"type": "object",
+	"title": "The root schema",
+	"description": "The root schema comprises the entire JSON document.",
+	"default": {},
+	"examples": [
+		{
+			"id": 1,
+			"title": "JT1",
+			"salary": 20,
+			"equity": 20.0,
+			"companyHandle": "c1"
+		}
+	],
+	"required": ["id", "title", "salary", "equity", "companyHandle"],
+	"properties": {
+		"id": {
+			"$id": "#/properties/id",
+			"type": "integer",
+			"title": "The id schema",
+			"description": "The serialized ID of the job in the database",
+			"default": 0,
+			"examples": [1]
+		},
+		"title": {
+			"$id": "#/properties/title",
+			"type": "string",
+			"title": "The title schema",
+			"description": "The job title",
+			"default": "",
+			"examples": ["Network administrator", "Janitor", "Software Engineer"]
+		},
+		"salary": {
+			"$id": "#/properties/salary",
+			"type": "integer",
+			"title": "The salary schema",
+			"description": "Yearly salary estimate",
+			"default": 0,
+			"examples": [400000, 80000, 50]
+		},
+		"equity": {
+			"$id": "#/properties/equity",
+			"type": "number",
+			"title": "The equity schema",
+			"description": "Ownership shares in the company in the form of stock options",
+			"default": 0.0,
+			"maximum": 1.0,
+			"examples": [1.0, 0.2, 0.004]
+		},
+		"companyHandle": {
+			"$id": "#/properties/companyHandle",
+			"type": "string",
+			"title": "The companyHandle schema",
+			"description": "Company that the job is posted on behalf of",
+			"default": "",
+			"examples": ["c1"]
+		}
+	},
+	"additionalProperties": true
+}
